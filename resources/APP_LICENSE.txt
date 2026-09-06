@@ -1,0 +1,3 @@
+Gemma Greetings application source code is provided under the MIT License.
+
+This distribution may include Gemma model files. Use of any included Gemma model is governed by the accompanying Gemma Terms of Use and the Gemma Prohibited Use Policy. You must not use the Gemma model for prohibited uses or in violation of applicable laws and regulations.
