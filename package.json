@@ -1,0 +1,73 @@
+{
+  "name": "gemma-greetings",
+  "productName": "Gemma Greetings",
+  "version": "1.0.8",
+  "description": "A private, local Windows app that creates personalized greeting cards from LinkedIn profile information using Gemma 3.",
+  "main": "dist/main/index.cjs",
+  "author": "Manus AI",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build && electron .",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "start": "electron .",
+    "fetch:model": "node scripts/fetch-model.mjs",
+    "dist:win": "npm run build && electron-builder --win nsis --x64",
+    "dist:dir": "npm run build && electron-builder --dir"
+  },
+  "dependencies": {
+    "html-to-image": "^1.11.13",
+    "pdf-parse-legacy": "npm:pdf-parse@^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^44.2.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3"
+  },
+  "build": {
+    "appId": "com.local.gemmagreetings",
+    "productName": "Gemma Greetings",
+    "asar": true,
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules/**/*",
+      "!node_modules/**/{test,tests,example,examples}/**/*",
+      "!node_modules/**/*.map"
+    ],
+    "extraResources": [
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": ["**/*", "!models/**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "requestedExecutionLevel": "asInvoker",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Gemma Greetings",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
+    }
+  }
+}
