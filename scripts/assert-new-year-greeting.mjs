@@ -1,0 +1,22 @@
+import { readFile } from "node:fs/promises";
+
+const path = process.argv[2];
+if (!path) throw new Error("Usage: node scripts/assert-new-year-greeting.mjs <completion.json>");
+const response = JSON.parse(await readFile(path, "utf8"));
+const raw = String(response.content || "");
+const start = raw.indexOf("{");
+const end = raw.lastIndexOf("}");
+if (start < 0 || end <= start) throw new Error(`No JSON card returned: ${raw}`);
+const card = JSON.parse(raw.slice(start, end + 1));
+const message = String(card.message || "").replace(/\s+/g, " ").trim();
+const wordCount = message.split(/\s+/).filter(Boolean).length;
+const prohibitedFirstPerson = /\b(?:i|me|my|mine|we|our|ours|us)\b/i;
+const prohibitedResumeVoice = /\b(?:curriculum vitae|résumé|resume|experience|qualifications|skills|responsibilities|profile|career summary)\b/i;
+const factReference = /\b(?:microservices|java|kotlin|reactive|automation|engineering manager|backend team lead)\b/i;
+if (!/^Dear Shaked, Happy New Year!/i.test(message)) throw new Error(`Greeting is not directly addressed as a New Year card: ${message}`);
+if (wordCount < 48 || wordCount > 90) throw new Error(`Greeting word count is outside the accepted card range (${wordCount}): ${message}`);
+if (!/\b(?:you|your)\b/i.test(message)) throw new Error(`Greeting is not recipient-directed: ${message}`);
+if (prohibitedFirstPerson.test(message)) throw new Error(`Greeting contains first-person language: ${message}`);
+if (prohibitedResumeVoice.test(message)) throw new Error(`Greeting has résumé-style language: ${message}`);
+if (!factReference.test(message)) throw new Error(`Greeting does not personalize using a verified fact: ${message}`);
+console.log(JSON.stringify({ message, wordCount, usedFacts: card.usedFacts || [] }, null, 2));
