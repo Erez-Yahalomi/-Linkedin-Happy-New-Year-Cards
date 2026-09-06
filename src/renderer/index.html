@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; script-src 'self'; connect-src 'self' https://huggingface.co https://cdn-lfs.huggingface.co;" />
+    <title>Gemma Greetings</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">G</div>
+          <div>
+            <p class="eyebrow">Private local greeting cards</p>
+            <h1>Gemma Greetings</h1>
+          </div>
+        </div>
+        <div id="model-status" class="model-status" role="status">Checking local model…</div>
+      </header>
+
+      <main class="workspace">
+        <section class="composer-panel" aria-label="Greeting card details">
+          <div class="section-heading">
+            <p class="eyebrow">Step 1</p>
+            <h2>Describe the recipient</h2>
+            <p>Choose a profile PDF or paste details you are entitled to use. The app processes information locally and does not sign in to, scrape, or send data to LinkedIn.</p>
+            <div class="import-row">
+              <button id="import-pdf" class="secondary" type="button">Choose profile PDF</button>
+              <span id="pdf-status" class="pdf-status">No PDF selected</span>
+            </div>
+          </div>
+
+          <form id="profile-form">
+            <div class="field-grid two">
+              <label>Recipient name<input required id="fullName" maxlength="160" placeholder="Jordan Lee" /></label>
+              <label>Greeting occasion<input required id="occasion" value="Happy New Year" readonly aria-readonly="true" /></label>
+            </div>
+            <div class="field-grid two">
+              <label>Headline<input id="headline" maxlength="300" placeholder="Product designer and community builder" /></label>
+              <label>Company<input id="company" maxlength="160" placeholder="Company or organization" /></label>
+            </div>
+            <div class="field-grid two">
+              <label>Location<input id="location" maxlength="160" placeholder="Optional" /></label>
+              <label>Relationship<input id="relationship" maxlength="160" placeholder="Former colleague, mentor, friend…" /></label>
+            </div>
+            <label>Profile notes<textarea id="profileNotes" maxlength="12000" rows="5" placeholder="Paste a short public profile summary, recent achievement, interests, or details you want reflected. Avoid sensitive information."></textarea></label>
+            <div class="field-grid two">
+              <label>Tone<select id="tone"><option value="warm">Warm</option><option value="professional">Professional</option><option value="celebratory">Celebratory</option><option value="friendly">Friendly</option><option value="grateful">Grateful</option></select></label>
+              <label>Visual theme<select id="theme"><option value="sunrise">Sunrise</option><option value="midnight">Midnight</option><option value="garden">Garden</option><option value="confetti" selected>Confetti</option><option value="pale-blue">Pale blue</option><option value="classic">Classic</option></select></label>
+            </div>
+            <label>From<input id="senderName" maxlength="160" placeholder="Your name (optional)" /></label>
+            <div class="form-actions">
+              <button id="generate-button" class="primary" type="submit">Create greeting card</button>
+              <button id="sample-button" class="secondary" type="button">Use sample</button>
+            </div>
+            <p id="form-message" class="form-message" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="preview-panel" aria-label="Greeting card preview">
+          <div id="setup-card" class="setup-card hidden">
+            <div class="setup-icon">✦</div>
+            <div>
+              <p class="eyebrow">One-time local setup</p>
+              <h2>Install Gemma 3</h2>
+              <p>Install the local model once. It runs on this computer, with no API key or account required. The model download is approximately 806 MB.</p>
+              <div class="setup-actions">
+                <button id="download-button" class="primary" type="button">Install local Gemma 3</button>
+                <button id="choose-button" class="secondary" type="button">Choose existing model</button>
+              </div>
+              <p class="license-note">Installing or using the model means you agree to the included Gemma Terms of Use.</p>
+            </div>
+          </div>
+
+          <article id="greeting-card" class="greeting-card theme-sunrise" aria-live="polite">
+            <div class="card-glow glow-a"></div><div class="card-glow glow-b"></div><div class="card-grain"></div>
+            <div class="card-content">
+              <p id="card-occasion" class="card-occasion">Happy New Year</p>
+              <h2 id="card-name">Your New Year card will appear here</h2>
+              <div class="card-rule"></div>
+              <p id="card-message" class="card-message">Choose a profile PDF, and let the local Gemma 3 model write a heartfelt Happy New Year message.</p>
+              <p id="card-signature" class="card-signature">With warm wishes</p>
+            </div>
+          </article>
+
+          <div class="preview-actions">
+            <button id="rewrite-card" class="secondary" type="button" disabled>Rewrite with another PDF detail</button>
+            <button id="download-card" class="secondary" type="button" disabled>Save card as PNG</button>
+            <button id="copy-text" class="secondary" type="button" disabled>Copy message</button>
+          </div>
+          <p class="privacy-note">All greeting generation happens on your computer. Outputs can be imperfect; review them before sharing.</p>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
