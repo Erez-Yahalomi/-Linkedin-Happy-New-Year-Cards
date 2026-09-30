@@ -1,25 +1,21 @@
 import { extractPrioritizedResumeFacts } from "../src/shared/pdf-fact-selection.ts";
 
 const lines = [
-  "Shaked Eyal",
-  "Engineering Manager at Vi",
+  "Shmo",
+  "Engineering Manager at mo",
   "Summary",
-  "Engineering Manager and A blogger",
+  "Engineering Manager",
   "Experience",
-  "Vi",
+  "mo",
   "Engineering Manager",
   "February 2026 - Present (8 months)",
-  "Tufin",
+  "Tu n",
   "4 years 6 months",
-  "Backend team lead",
-  "July 2023 - February 2026 (2 years 8 months)",
-  "Developing microservices using Java, C++, Kotlin and reactive programming",
-  "Scrum master of my team",
-  "Developing automation tools in JAVA",
+   
   "Education"
 ];
-const facts = extractPrioritizedResumeFacts(lines, "Shaked Eyal", "Engineering Manager at Vi");
-const expected = ["Engineering Manager and A blogger", "Engineering Manager at Vi"];
+const facts = extractPrioritizedResumeFacts(lines, "Smo", "Engineering Manager at Vi");
+const expected = ["Engineering Manager ", "Engineering Manager at mo"];
 if (JSON.stringify(facts) !== JSON.stringify(expected)) {
   throw new Error(`Expected About and latest-role facts ${JSON.stringify(expected)}, received ${JSON.stringify(facts)}`);
 }
