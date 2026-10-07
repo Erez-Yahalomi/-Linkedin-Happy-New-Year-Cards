@@ -1,9 +1,9 @@
-# Avery Patel
+# `EREZ Yahalomi`
 
 Design leader focused on accessible technology
 
-**Company:** Northstar Studio
+**Company:** AI Agents Studio
 
-**Location:** Chicago, Illinois
+**Location:** Israil
 
-Avery has led a major accessibility initiative and mentors early-career designers. Avery builds thoughtful, practical products.
+Avery has led a major accessibility initiative and mentors early-career designers. Erez builds thoughtful, practical products.
